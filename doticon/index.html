@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Конструктор иконок | Мирные огоньки</title>
+    <meta
+      name="description"
+      content="Онлайн-конструктор точечных иконок: загрузите картинку и настройте размер и отступы точек."
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="doticon.css" />
+    <script defer src="doticon.js"></script>
+  </head>
+  <body class="doticon-page">
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
+    <div class="page page--doticon">
+      <header class="site-header doticon-header">
+        <div class="site-header__brand">
+          <a href="../" class="site-logo-link" aria-label="На главную Мирных огоньков">
+            <img src="https://ogonki.tv/assets/brand/logo.svg" alt="Мирные огоньки" class="site-logo" />
+          </a>
+          <span class="site-tagline">Конструктор точечных иконок</span>
+        </div>
+        <nav class="site-nav" aria-label="Основная навигация">
+          <a href="../#support">Про проект</a>
+          <a href="../#donations">Поддержать</a>
+          <a href="../#community">Сообщество</a>
+          <a href="../#timeline">История</a>
+          <a href="../#follow">Следить</a>
+        </nav>
+      </header>
+      <main id="main" class="doticon-main">
+        <section class="doticon-hero" aria-labelledby="doticon-title">
+          <h1 id="doticon-title">Соберите иконку из точек из любого изображения</h1>
+          <p>
+            Загрузите картинку, настройте размер точек и расстояние между ними, а затем скачайте готовую иконку в
+            фирменном стиле.
+          </p>
+        </section>
+        <section class="doticon-workbench" aria-labelledby="doticon-workbench-title">
+          <div class="section-header">
+            <h2 id="doticon-workbench-title">Рабочая область</h2>
+            <p>Настройте параметры визуализации иконки — результат обновляется сразу после изменения.</p>
+          </div>
+          <div class="doticon-grid">
+            <form class="doticon-controls" aria-label="Настройки и загрузка изображения">
+              <fieldset class="doticon-fieldset">
+                <legend>Изображение</legend>
+                <label class="file-drop" data-dropzone>
+                  <span class="file-drop__title">Перетащите файл или выберите его</span>
+                  <span class="file-drop__hint">Поддерживаются PNG, JPG и SVG</span>
+                  <input type="file" accept="image/*" name="image" data-input-file />
+                </label>
+                <p class="doticon-tip">После загрузки изображение автоматически масштабируется до 640 пикселей по большей стороне.</p>
+              </fieldset>
+              <fieldset class="doticon-fieldset">
+                <legend>Параметры сетки</legend>
+                <label class="slider-control">
+                  <span>Радиус точки: <strong><span data-output="dotSize">6</span> px</strong></span>
+                  <input type="range" min="2" max="20" value="6" step="1" data-input-dotsize />
+                </label>
+                <label class="slider-control">
+                  <span>Минимальный отступ: <strong><span data-output="spacing">4</span> px</strong></span>
+                  <input type="range" min="0" max="24" value="4" step="1" data-input-spacing />
+                </label>
+                <label class="checkbox-control">
+                  <input type="checkbox" data-input-colorize checked />
+                  <span>Использовать цвета исходного изображения</span>
+                </label>
+              </fieldset>
+              <fieldset class="doticon-fieldset">
+                <legend>Цвета</legend>
+                <label class="color-control">
+                  <span>Цвет точек</span>
+                  <input type="color" value="#9fe4d0" data-input-dotcolor />
+                </label>
+                <label class="color-control">
+                  <span>Цвет фона</span>
+                  <input type="color" value="#0f172a" data-input-bgcolor />
+                </label>
+              </fieldset>
+              <button type="button" class="button button--secondary" data-action-download disabled>
+                Скачать иконку
+              </button>
+            </form>
+            <div class="doticon-preview">
+              <div class="doticon-preview__canvas-wrapper">
+                <canvas class="doticon-canvas" width="320" height="320" aria-label="Результат в точках" role="img"></canvas>
+              </div>
+              <p class="doticon-hint" data-state-message>
+                Загрузите изображение, чтобы увидеть результат. Для лучшего эффекта используйте контрастные картинки.
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="site-footer doticon-footer">
+        <p>© Мирные огоньки, 2025. Вы всегда можете вернуться на <a href="../">главную страницу проекта</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
