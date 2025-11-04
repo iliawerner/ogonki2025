@@ -12,6 +12,8 @@
   const canvas = document.querySelector('.doticon-canvas');
   const ctx = canvas.getContext('2d');
   const dropzone = document.querySelector('[data-dropzone]');
+  const previewWrapper = document.querySelector('.doticon-preview__canvas-wrapper');
+  const loadingIndicator = document.querySelector('[data-loading]');
 
   const MAX_DIMENSION = 640;
   const state = {
@@ -52,6 +54,24 @@
   function enableDownload(enable) {
     if (downloadButton) {
       downloadButton.disabled = !enable;
+    }
+  }
+
+  function setLoading(isLoading) {
+    if (loadingIndicator) {
+      if (isLoading) {
+        loadingIndicator.removeAttribute('hidden');
+      } else {
+        loadingIndicator.setAttribute('hidden', '');
+      }
+    }
+
+    if (previewWrapper) {
+      if (isLoading) {
+        previewWrapper.setAttribute('aria-busy', 'true');
+      } else {
+        previewWrapper.removeAttribute('aria-busy');
+      }
     }
   }
 
@@ -104,7 +124,7 @@
     ctx.fillStyle = backgroundColor;
     ctx.fillRect(0, 0, targetWidth, targetHeight);
 
-    const minRadius = dotRadius * 0.1;
+    const minRadius = Math.max(0.5, dotRadius * 0.1);
 
     for (let row = 0; row < rows; row += 1) {
       const startY = Math.floor(row * cellHeight);
@@ -141,11 +161,8 @@
         const avgG = gTotal / count;
         const avgB = bTotal / count;
         const brightness = clamp(brightnessTotal / (count * 255), 0, 1);
-        const radius = dotRadius * (1 - brightness);
-
-        if (radius < minRadius) {
-          continue;
-        }
+        const rawRadius = dotRadius * (1 - brightness);
+        const radius = clamp(rawRadius, minRadius, dotRadius);
 
         const centerX = startX + (endX - startX) / 2;
         const centerY = startY + (endY - startY) / 2;
@@ -176,12 +193,23 @@
     revokeObjectUrl();
     state.objectUrl = url;
 
+    setLoading(true);
     setMessage('Изображение загружено, создаём точечную версию…');
     enableDownload(false);
 
     image.onload = () => {
       state.image = image;
-      renderDotIcon();
+      window.requestAnimationFrame(() => {
+        try {
+          renderDotIcon();
+        } catch (error) {
+          console.error('doticon: render failed', error);
+          setMessage('Не удалось обработать изображение. Попробуйте другой файл.');
+          enableDownload(false);
+        } finally {
+          setLoading(false);
+        }
+      });
     };
 
     image.onerror = () => {
@@ -189,6 +217,7 @@
       enableDownload(false);
       revokeObjectUrl();
       state.image = null;
+      setLoading(false);
     };
 
     image.src = url;

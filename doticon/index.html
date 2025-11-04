@@ -91,8 +91,12 @@
               </button>
             </form>
             <div class="doticon-preview">
-              <div class="doticon-preview__canvas-wrapper">
+              <div class="doticon-preview__canvas-wrapper" aria-live="polite">
                 <canvas class="doticon-canvas" width="320" height="320" aria-label="Результат в точках" role="img"></canvas>
+                <div class="doticon-loading" data-loading hidden>
+                  <span class="doticon-loading__spinner" aria-hidden="true"></span>
+                  <span class="doticon-loading__text">Обрабатываем изображение…</span>
+                </div>
               </div>
               <p class="doticon-hint" data-state-message>
                 Загрузите изображение, чтобы увидеть результат. Для лучшего эффекта используйте контрастные картинки.

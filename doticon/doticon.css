@@ -169,6 +169,39 @@ body.doticon-page {
   justify-content: center;
 }
 
+.doticon-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: rgba(15, 23, 42, 0.86);
+  color: #f8fafc;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.doticon-loading__spinner {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 4px solid rgba(159, 228, 208, 0.25);
+  border-top-color: #9fe4d0;
+  animation: doticon-spin 1s linear infinite;
+}
+
+.doticon-loading__text {
+  font-size: 0.95rem;
+  text-align: center;
+  max-width: 12rem;
+}
+
+.doticon-preview__canvas-wrapper[aria-busy='true'] .doticon-canvas {
+  filter: blur(2px) opacity(0.6);
+}
+
 .doticon-canvas {
   width: 100%;
   height: auto;
@@ -190,6 +223,12 @@ body.doticon-page {
 
 .doticon-footer a {
   color: #9fe4d0;
+}
+
+@keyframes doticon-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 640px) {
